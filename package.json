@@ -3,12 +3,15 @@
   "version": "1.0.0",
   "revision": "20170907",
   "description": "Unofficial Zalo App",
+  "repository": "SafeStudio/unofficial-zalo",
   "main": "app.js",
   "scripts": {
+    "lint": "eslint --ext .js . src",
+    "lint:fix": "eslint --fix --ext .js . src",
     "package-mac": "electron-packager . --overwrite --platform=darwin --arch=x64 --icon=assets/icons/mac/icon.icns --prune=true --out=release-builds",
     "package-win": "electron-packager . --overwrite --asar=true --platform=win32 --arch=ia32 --icon=assets/icons/win/icon.ico --prune=true --out=release-builds --version-string.CompanyName=SafeStudio --version-string.FileDescription=CE --version-string.ProductName=\"Unofficial Zalo\"",
-    "package-linux" : "electron-packager . --overwrite --platform=linux --arch=x64 --icon=assets/icons/linux/1024x1024.png --prune=true --out=release-builds --electronVersion=$(electron -v | sed -e \"s/^v//\")",
-    "package-linux-x64" : "npm run package-linux && electron-installer-debian --config config.json"
+    "package-linux": "electron-packager . --overwrite --platform=linux --arch=x64 --icon=assets/icons/linux/1024x1024.png --prune=true --out=release-builds --electronVersion=$(electron -v | sed -e \"s/^v//\")",
+    "package-linux-x64": "npm run package-linux && electron-installer-debian --config config.json"
   },
   "build": {
     "appId": "studio.safe.unofficial-zalo",
@@ -31,5 +34,13 @@
     "email": "ansidev@gmail.com",
     "url": "https://wp-legoiv.rhcloud.com/"
   },
-  "license": "GPL-3.0"
+  "license": "GPL-3.0",
+  "devDependencies": {
+    "eslint": "^4.6.1",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-node": "^5.1.1",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-standard": "^3.0.1"
+  }
 }
