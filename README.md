@@ -6,13 +6,15 @@
 ### Install NPM package globally
 
 ``` bash
-npm install -g electron-packager electron-installer-debian
+npm install -g electron electron-packager electron-installer-debian
+# or
+yarn install -g  electron electron-packager electron-installer-debian
 ```
 ``` bash
 # install dependencies
-npm install
+npm install --save-dev
 # or
-yarn install
+yarn install -D
 ```
 
 ### Package application
