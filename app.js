@@ -1,12 +1,53 @@
-const {app, BrowserWindow} = require('electron')
+const {
+  app,
+  BrowserWindow,
+  Tray,
+  Menu
+} = require('electron')
+const path = require('path')
+const iconPath = 'src/assets/icons/linux/icon.png'
+const menuTemplate = [{
+  label: 'Menu',
+  submenu: [{
+      label: 'Hide window',
+      click() {
+        if (win.isVisible()) {
+          menuTemplate[0].submenu[0].label = 'Show window'
+          win.hide()
+        } else {
+          menuTemplate[0].submenu[0].label = 'Hide window'
+          win.show()
+        }
+        refreshAppMenu()
+      }
+    },
+    {
+      label: 'Quit',
+      click() {
+        win.destroy()
+      }
+    }
+  ]
+}]
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let win
+let tray
 
-function createWindow () {
+function refreshAppMenu() {
+  let menu = Menu.buildFromTemplate(menuTemplate)
+  let trayMenu = Menu.buildFromTemplate(menuTemplate[0].submenu)
+  Menu.setApplicationMenu(menu)
+  tray.setContextMenu(trayMenu)
+}
+
+function createWindow() {
+  process.env.XDG_CURRENT_DESKTOP = 'Unity'
   // Create the browser window.
-  win = new BrowserWindow({icon: __dirname + '/icon.png'})
+  win = new BrowserWindow({
+    icon: path.join(__dirname, iconPath)
+  })
   win.maximize()
 
   // and load the index.html of the app.
@@ -19,12 +60,17 @@ function createWindow () {
     // when you should delete the corresponding element.
     win = null
   })
+  tray = new Tray(path.join(__dirname, iconPath))
+  refreshAppMenu()
+  return win
 }
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.on('ready', createWindow)
+app.on('ready', () => {
+  createWindow()
+})
 
 // Quit when all windows are closed.
 app.on('window-all-closed', () => {
