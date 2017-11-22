@@ -9,24 +9,24 @@ const iconPath = 'src/assets/icons/linux/icon.png'
 const menuTemplate = [{
   label: 'Menu',
   submenu: [{
-      label: 'Hide window',
-      click() {
-        if (win.isVisible()) {
-          menuTemplate[0].submenu[0].label = 'Show window'
-          win.hide()
-        } else {
-          menuTemplate[0].submenu[0].label = 'Hide window'
-          win.show()
-        }
-        refreshAppMenu()
+    label: 'Hide window',
+    click () {
+      if (win.isVisible()) {
+        menuTemplate[0].submenu[0].label = 'Show window'
+        win.hide()
+      } else {
+        menuTemplate[0].submenu[0].label = 'Hide window'
+        win.show()
       }
-    },
-    {
-      label: 'Quit',
-      click() {
-        win.destroy()
-      }
+      refreshAppMenu()
     }
+  },
+  {
+    label: 'Quit',
+    click () {
+      app.quit()
+    }
+  }
   ]
 }]
 
@@ -35,14 +35,14 @@ const menuTemplate = [{
 let win
 let tray
 
-function refreshAppMenu() {
+function refreshAppMenu () {
   let menu = Menu.buildFromTemplate(menuTemplate)
   let trayMenu = Menu.buildFromTemplate(menuTemplate[0].submenu)
   Menu.setApplicationMenu(menu)
   tray.setContextMenu(trayMenu)
 }
 
-function createWindow() {
+function createWindow () {
   process.env.XDG_CURRENT_DESKTOP = 'Unity'
   // Create the browser window.
   win = new BrowserWindow({
