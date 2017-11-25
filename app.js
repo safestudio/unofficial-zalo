@@ -11,6 +11,9 @@ const menuTemplate = [{
   submenu: [{
     label: 'Hide window',
     click () {
+      if (win.isMinimized()) {
+        win.focus()
+      }
       if (win.isVisible()) {
         menuTemplate[0].submenu[0].label = 'Show window'
         win.hide()
@@ -59,6 +62,10 @@ function createWindow () {
     // in an array if your app supports multi windows, this is the time
     // when you should delete the corresponding element.
     win = null
+  })
+  win.on('minimize', () => {
+    menuTemplate[0].submenu[0].label = 'Show window'
+    refreshAppMenu()
   })
   tray = new Tray(path.join(__dirname, iconPath))
   refreshAppMenu()
