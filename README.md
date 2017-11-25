@@ -6,9 +6,9 @@
 ### Install NPM package globally
 
 ``` bash
-npm install -g electron electron-packager electron-installer-debian
+npm install -g electron electron-builder electron-packager electron-installer-debian
 # or
-yarn install -g  electron electron-packager electron-installer-debian
+yarn install -g  electron electron-builder electron-packager electron-installer-debian
 ```
 ``` bash
 # install dependencies
@@ -29,9 +29,9 @@ yarn run package-win
 
 #### For macOS
 ``` bash
-npm run package-mac
+npm run dist
 #or 
-yarn run package-mac
+yarn dist
 ```
 
 #### For Ubuntu
