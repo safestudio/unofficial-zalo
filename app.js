@@ -5,7 +5,7 @@ const {
   Menu
 } = require('electron')
 const path = require('path')
-const iconPath = 'src/assets/icons/linux/icon.png'
+const iconPath = 'src/assets/icons/icon.png'
 const menuTemplate = [{
   label: 'Menu',
   submenu: [{
