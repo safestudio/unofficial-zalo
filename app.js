@@ -6,11 +6,17 @@ const {
 } = require('electron')
 const path = require('path')
 const iconPath = 'src/assets/icons/icon.png'
+const AutoLaunch = require('auto-launch')
+const appAutoLauncher = new AutoLaunch({
+  name: 'Unofficial Zalo',
+  // path: '/Applications/Unofficial Zalo.app',
+});
+var isAutoLaunchEnabled = false
 const menuTemplate = [{
   label: 'Menu',
   submenu: [{
     label: 'Hide window',
-    click () {
+    click() {
       if (win.isMinimized()) {
         win.focus()
       }
@@ -25,27 +31,63 @@ const menuTemplate = [{
     }
   },
   {
+    label: 'Auto start with OS',
+    type: 'checkbox',
+    checked: isAutoLaunchEnabled,
+    click() {
+      toogleAutoLaunch()
+    }
+  },
+  {
     label: 'Quit',
-    click () {
+    click() {
       app.quit()
     }
   }
   ]
 }]
 
+function toogleAutoLaunch() {
+  appAutoLauncher.isEnabled()
+    .then(function (isEnabled) {
+      if (isEnabled) {
+        appAutoLauncher.disable()
+      } else {
+        appAutoLauncher.enable()
+      }
+      isAutoLaunchEnabled = !isEnabled
+      menuTemplate[0].submenu[1].checked = isAutoLaunchEnabled
+      refreshAppMenu()
+    })
+    .catch(function (err) {
+      console.log("Error occurred")
+    })
+}
+
+function refreshAutoLaunch(callback) {
+  appAutoLauncher.isEnabled()
+    .then(function (isEnabled) {
+      isAutoLaunchEnabled = isEnabled
+      menuTemplate[0].submenu[1].checked = isAutoLaunchEnabled
+      callback()
+      refreshAppMenu()
+    })
+    .catch(function (err) {
+      console.log("Error occurred")
+    })
+}
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let win
 let tray
+let trayMenu
 
-function refreshAppMenu () {
+function refreshAppMenu() {
   let menu = Menu.buildFromTemplate(menuTemplate)
-  let trayMenu = Menu.buildFromTemplate(menuTemplate[0].submenu)
   Menu.setApplicationMenu(menu)
-  tray.setContextMenu(trayMenu)
 }
 
-function createWindow () {
+function createWindow() {
   process.env.XDG_CURRENT_DESKTOP = 'Unity'
   // Create the browser window.
   win = new BrowserWindow({
@@ -68,6 +110,14 @@ function createWindow () {
     refreshAppMenu()
   })
   tray = new Tray(path.join(__dirname, iconPath))
+  trayMenu = Menu.buildFromTemplate(menuTemplate[0].submenu)
+  tray.on('click', () => {
+    refreshAutoLaunch(() => {
+      trayMenu = Menu.buildFromTemplate(menuTemplate[0].submenu)
+      tray.popUpContextMenu(trayMenu)
+    })
+  })
+  refreshAutoLaunch()
   refreshAppMenu()
   return win
 }
