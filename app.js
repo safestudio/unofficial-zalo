@@ -1,30 +1,53 @@
 const {
   app,
+  dialog,
   BrowserWindow,
   Tray,
-  Menu
+  Menu,
+  shell
 } = require('electron')
+const appVersion = '1.0.2'
 const path = require('path')
-const iconPath = 'src/assets/icons/icon.png'
+const baseIconPath = 'src/assets/icons/'
+const iconPath = baseIconPath + 'icon.png'
 const AutoLaunch = require('auto-launch')
+const rootUrl = 'https://chat.zalo.me/'
 const appAutoLauncher = new AutoLaunch({
   name: 'Unofficial Zalo',
-  // path: '/Applications/Unofficial Zalo.app',
 });
+var ipc = require('electron').ipcMain;
 var isAutoLaunchEnabled = false
 const menuTemplate = [{
   label: 'Menu',
   submenu: [{
+    label: 'About Unofficial Zalo',
+    click() {
+      let aboutDialog = new BrowserWindow({
+        resizable: false,
+        movable: false,
+        minimizable: false,
+        maximizable: false,
+        width: 300,
+        height: 200
+      })
+      aboutDialog.on('closed', () => {
+        aboutDialog = null
+      })
+      aboutDialog.loadURL(`file://${__dirname}/src/components/about.html`)
+      aboutDialog.show()
+    }
+  },
+  {
     label: 'Hide window',
     click() {
       if (win.isMinimized()) {
         win.focus()
       }
       if (win.isVisible()) {
-        menuTemplate[0].submenu[0].label = 'Show window'
+        menuTemplate[0].submenu[1].label = 'Show window'
         win.hide()
       } else {
-        menuTemplate[0].submenu[0].label = 'Hide window'
+        menuTemplate[0].submenu[1].label = 'Hide window'
         win.show()
       }
       refreshAppMenu()
@@ -43,7 +66,23 @@ const menuTemplate = [{
     click() {
       app.quit()
     }
-  }
+  }]
+},
+{
+  label: 'Developer',
+  submenu: [
+    {
+      label: 'Reload',
+      click() {
+        win.loadURL(rootUrl)
+      }
+    },
+    {
+      label: 'Open developer tool',
+      click() {
+        win.webContents.openDevTools()
+      }
+    }
   ]
 }]
 
@@ -60,7 +99,7 @@ function toogleAutoLaunch() {
       refreshAppMenu()
     })
     .catch(function (err) {
-      console.log("Error occurred")
+      console.log("Error occurred: " + err.message)
     })
 }
 
@@ -69,11 +108,13 @@ function refreshAutoLaunch(callback) {
     .then(function (isEnabled) {
       isAutoLaunchEnabled = isEnabled
       menuTemplate[0].submenu[1].checked = isAutoLaunchEnabled
-      callback()
+      if (typeof callback === "function") {
+        callback()
+      }
       refreshAppMenu()
     })
     .catch(function (err) {
-      console.log("Error occurred")
+      console.log("Error occurred: " + err.message)
     })
 }
 // Keep a global reference of the window object, if you don't, the window will
@@ -96,7 +137,7 @@ function createWindow() {
   win.maximize()
 
   // and load the index.html of the app.
-  win.loadURL('https://chat.zalo.me/')
+  win.loadURL(rootUrl)
 
   // Emitted when the window is closed.
   win.on('closed', () => {
@@ -113,7 +154,7 @@ function createWindow() {
   trayMenu = Menu.buildFromTemplate(menuTemplate[0].submenu)
   tray.on('click', () => {
     refreshAutoLaunch(() => {
-      trayMenu = Menu.buildFromTemplate(menuTemplate[0].submenu)
+      trayMenu = Menu.buildFromTemplate(menuTemplate[0].submenu.slice(1))
       tray.popUpContextMenu(trayMenu)
     })
   })
