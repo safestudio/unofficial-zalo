@@ -5,10 +5,12 @@
 
 ### Install NPM package globally
 
+#### For macOS and Linux
+
 ``` bash
-npm install -g electron electron-builder electron-packager electron-installer-debian
+npm install -g electron electron-builder
 # or
-yarn install -g  electron electron-builder electron-packager electron-installer-debian
+yarn install -g  electron electron-builder
 ```
 ``` bash
 # install dependencies
@@ -19,39 +21,17 @@ yarn install -D
 
 ### Package application
 
-#### For Windows
-
-``` bash
-npm run package-win
-#or
-yarn run package-win
-```
-
-#### For macOS
+#### For macOS and Linux
 ``` bash
 npm run dist
 #or 
 yarn dist
 ```
 
-#### For Ubuntu
-``` bash
-# x86
-npm run package-linux
-#or
-yarn run package-linux
-
-
-# x86 and x64
-npm run package-linux-x64
-# or
-yarn run package-linux-x64
-```
-
-I develop this software for Linux, but if you want to build it for Windows and Mac, you can send me built file.
+I tested this software on Linux and macOS. But you can build it for Windows.
 
 ## Creating Issue Instruction
 
-Please write as detail as you can.
+Please submit detail issues at [Unofficial Zalo Issues](https://github.com/SafeStudio/unofficial-zalo/issues) if you detect them.
 
-Tips: You can assign label for issue.
+**Tips**: You can assign label for issue.
