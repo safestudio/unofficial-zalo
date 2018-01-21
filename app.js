@@ -50,6 +50,7 @@ const menuTemplate = [{
         menuTemplate[0].submenu[1].label = 'Hide window'
         win.show()
       }
+      refreshTrayMenu()
       refreshAppMenu()
     }
   },
@@ -95,7 +96,7 @@ function toogleAutoLaunch() {
         appAutoLauncher.enable()
       }
       isAutoLaunchEnabled = !isEnabled
-      menuTemplate[0].submenu[1].checked = isAutoLaunchEnabled
+      menuTemplate[0].submenu[2].checked = isAutoLaunchEnabled
       refreshAppMenu()
     })
     .catch(function (err) {
@@ -107,7 +108,7 @@ function refreshAutoLaunch(callback) {
   appAutoLauncher.isEnabled()
     .then(function (isEnabled) {
       isAutoLaunchEnabled = isEnabled
-      menuTemplate[0].submenu[1].checked = isAutoLaunchEnabled
+      menuTemplate[0].submenu[2].checked = isAutoLaunchEnabled
       if (typeof callback === "function") {
         callback()
       }
@@ -128,6 +129,13 @@ function refreshAppMenu() {
   Menu.setApplicationMenu(menu)
 }
 
+function refreshTrayMenu() {
+  trayMenu = Menu.buildFromTemplate(menuTemplate[0].submenu)
+  if (process.platform === 'linux') {
+    tray.setContextMenu(trayMenu)
+  }
+}
+
 function createWindow() {
   process.env.XDG_CURRENT_DESKTOP = 'Unity'
   // Create the browser window.
@@ -146,12 +154,11 @@ function createWindow() {
     // when you should delete the corresponding element.
     win = null
   })
-  win.on('minimize', () => {
-    menuTemplate[0].submenu[0].label = 'Show window'
-    refreshAppMenu()
-  })
   tray = new Tray(path.join(__dirname, iconPath))
   trayMenu = Menu.buildFromTemplate(menuTemplate[0].submenu)
+  if (process.platform === 'linux') {
+    tray.setContextMenu(trayMenu)
+  }
   tray.on('click', () => {
     refreshAutoLaunch(() => {
       trayMenu = Menu.buildFromTemplate(menuTemplate[0].submenu.slice(1))
@@ -160,6 +167,13 @@ function createWindow() {
   })
   refreshAutoLaunch()
   refreshAppMenu()
+
+  win.on('minimize', () => {
+    menuTemplate[0].submenu[1].label = 'Show window'
+    refreshTrayMenu()
+    refreshAppMenu()
+  })
+
   return win
 }
 
