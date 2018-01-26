@@ -130,7 +130,7 @@ function refreshAppMenu() {
 }
 
 function refreshTrayMenu() {
-  trayMenu = Menu.buildFromTemplate(menuTemplate[0].submenu)
+  trayMenu = Menu.buildFromTemplate(menuTemplate[0].submenu.slice(1))
   if (process.platform === 'linux') {
     tray.setContextMenu(trayMenu)
   }
@@ -155,7 +155,7 @@ function createWindow() {
     win = null
   })
   tray = new Tray(path.join(__dirname, iconPath))
-  trayMenu = Menu.buildFromTemplate(menuTemplate[0].submenu)
+  trayMenu = Menu.buildFromTemplate(menuTemplate[0].submenu.slice(1))
   if (process.platform === 'linux') {
     tray.setContextMenu(trayMenu)
   }
