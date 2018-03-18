@@ -1,6 +1,6 @@
 {
-  "src": "release-builds/unofficial-zalo-linux-x64/",
-  "dest": "release-builds/installers/",
+  "src": "dist/unofficial-zalo-linux-x64/",
+  "dest": "dist/installers/",
   "arch": "amd64",
   "options": {
     "arch": "amd64",

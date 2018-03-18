@@ -9,14 +9,11 @@
     "dist": "./node_modules/.bin/electron-builder",
     "lint": "eslint --ext .js . src",
     "lint:fix": "eslint --fix --ext .js . src",
-    "package-win": "electron-packager . --overwrite --asar=true --platform=win32 --arch=ia32 --icon=$(pwd)/src/assets/icons/win/icon.ico --prune=true --out=$(pwd)/release-builds --version-string.CompanyName=SafeStudio --version-string.FileDescription=CE --version-string.ProductName=\"Unofficial Zalo\" --electronVersion=$(electron -v | sed -e \"s/^v//\")"
+    "package-win": "electron-packager . --overwrite --asar=true --platform=win32 --arch=ia32 --icon=$(pwd)/src/assets/icons/win/icon.ico --prune=true --out=$(pwd)/dist --version-string.CompanyName=SafeStudio --version-string.FileDescription=CE --version-string.ProductName=\"Unofficial Zalo\" --electronVersion=$(electron -v | sed -e \"s/^v//\")"
   },
   "build": {
     "appId": "studio.safe.unofficial-zalo",
     "productName": "Unofficial Zalo",
-    "directories": {
-      "output": "release-builds"
-    },
     "mac": {
       "category": "studio.safe.unofficial-zalo",
       "icon": "src/assets/icons/mac/icon.icns"
