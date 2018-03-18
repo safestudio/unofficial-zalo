@@ -1,5 +1,6 @@
 const {
   app,
+  globalShortcut,
   dialog,
   BrowserWindow,
   Tray,
