@@ -95,7 +95,7 @@ function toogleAutoLaunch() {
       }
       isAutoLaunchEnabled = !isEnabled
       menuTemplate[0].submenu[2].checked = isAutoLaunchEnabled
-      refreshAppMenu()
+      refreshAllMenus()
     })
     .catch(function (err) {
       console.log("Error occurred: " + err.message)
@@ -134,6 +134,11 @@ function refreshTrayMenu() {
   }
 }
 
+function refreshAllMenus() {
+  refreshTrayMenu()
+  refreshAppMenu()
+}
+
 function createWindow() {
   process.env.XDG_CURRENT_DESKTOP = 'Unity'
   // Create the browser window.
@@ -168,8 +173,7 @@ function createWindow() {
 
   win.on('minimize', () => {
     menuTemplate[0].submenu[1].label = 'Show window'
-    refreshTrayMenu()
-    refreshAppMenu()
+    refreshAllMenus()
   })
 
   return win
