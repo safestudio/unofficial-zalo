@@ -8,11 +8,6 @@
 #### For macOS and Linux
 
 ``` bash
-npm install -g electron electron-builder
-# or
-yarn install -g  electron electron-builder
-```
-``` bash
 # install dependencies
 npm install --save-dev
 # or
@@ -28,7 +23,7 @@ npm run dist
 yarn dist
 ```
 
-I tested this software on Linux and macOS. But you can build it for Windows.
+Currently, I don't support Windows. But you can build it for Windows.
 
 ## Creating Issue Instruction
 
