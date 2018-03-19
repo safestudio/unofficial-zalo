@@ -6,7 +6,8 @@ const {
   Menu,
   shell
 } = require('electron')
-const appVersion = '1.0.2'
+const nativeImage = require('electron').nativeImage
+const appVersion = '1.0.3'
 const path = require('path')
 const baseIconPath = 'src/assets/icons/'
 const iconPath = baseIconPath + 'icon.png'
@@ -22,23 +23,18 @@ const menuTemplate = [{
   submenu: [{
     label: 'About Unofficial Zalo',
     click() {
-      let aboutDialog = new BrowserWindow({
-        resizable: false,
-        movable: false,
-        minimizable: false,
-        maximizable: false,
-        width: 300,
-        height: 200
-      })
-      aboutDialog.on('closed', () => {
-        aboutDialog = null
-      })
-      aboutDialog.loadURL(`file://${__dirname}/src/components/about.html`)
-      aboutDialog.show()
+      dialog.showMessageBox({
+        icon: nativeImage.createFromPath(baseIconPath + 'app-icon.png'),
+        title: "About Unofficial Zalo",
+        message: "Unoffical Zalo " + appVersion,
+        detail: "Built by SAFE Studio with ❤️ and Electron",
+        buttons: ["OK"]
+      });
     }
   },
   {
     label: 'Hide window',
+    accelerator: 'CmdOrCtrl+H',
     click() {
       if (win.isMinimized()) {
         win.focus()
@@ -64,6 +60,7 @@ const menuTemplate = [{
   },
   {
     label: 'Quit',
+    accelerator: process.platform === 'darwin' ? 'Cmd+Q' : 'Alt+F4',
     click() {
       app.quit()
     }
@@ -74,6 +71,7 @@ const menuTemplate = [{
   submenu: [
     {
       label: 'Reload',
+      accelerator: 'F5',
       click() {
         win.loadURL(rootUrl)
       }
