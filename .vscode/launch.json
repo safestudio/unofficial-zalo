@@ -7,7 +7,7 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Electron App",
+            "name": "Unofficial Zalo",
             "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/electron",
             "program": "${workspaceFolder}/app.js",
             "protocol": "inspector"
