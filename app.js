@@ -12,9 +12,14 @@ const baseIconPath = 'src/assets/icons/'
 const iconPath = baseIconPath + 'icon.png'
 const AutoLaunch = require('auto-launch')
 const rootUrl = 'https://chat.zalo.me/'
-const appAutoLauncher = new AutoLaunch({
-  name: 'Unofficial Zalo',
-});
+let autoLaunchOptions = {
+  name: 'Unofficial Zalo'
+}
+if (process.platform === 'linux') {
+  autoLaunchOptions.path = '/opt/Unofficial\\ Zalo/unofficial-zalo'
+}
+const appAutoLauncher = new AutoLaunch(autoLaunchOptions);
+
 var isAutoLaunchEnabled = false
 const menuTemplate = [{
   label: 'Menu',
