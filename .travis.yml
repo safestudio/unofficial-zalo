@@ -1,0 +1,38 @@
+sudo: required
+dist: trusty
+
+language: nodejs
+
+matrix:
+  include:
+    - os: osx
+    - os: linux
+#      env: CC=clang CXX=clang++ npm_config_clang=1
+      compiler: clang
+
+env:
+  - CXX=g++-4.8
+
+node_js:
+  - 9
+
+cache:
+  directories:
+    - node_modules
+
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - g++-4.8
+      - icnsutils
+      - rpm
+      - curl
+
+install:
+  - nvm install 9
+  - npm install --save-dev
+
+script:
+  - npm run dist
