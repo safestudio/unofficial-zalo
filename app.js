@@ -1,11 +1,9 @@
 const {
   app,
-  globalShortcut,
   dialog,
   BrowserWindow,
   Tray,
-  Menu,
-  shell
+  Menu
 } = require('electron')
 const nativeImage = require('electron').nativeImage
 const appVersion = '1.0.3'
@@ -17,7 +15,6 @@ const rootUrl = 'https://chat.zalo.me/'
 const appAutoLauncher = new AutoLaunch({
   name: 'Unofficial Zalo',
 });
-var ipc = require('electron').ipcMain;
 var isAutoLaunchEnabled = false
 const menuTemplate = [{
   label: 'Menu',
