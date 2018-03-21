@@ -1,6 +1,11 @@
 # Test against the latest version of this Node.js version
 environment:
   nodejs_version: "9.8.0"
+  GH_TOKEN:
+    secure: idf9Ht7UeO27yGNByujMSDxNNoeWYaxXOyk+znTJbgmybPAIlVnp4gWpGmOs/awj
+
+cache:
+  - node_modules
 
 platform:
   - x86
@@ -13,6 +18,8 @@ install:
   # install modules
   - npm install --save-dev
   - npm run dist
+
+version: '{build}'
 
 # Post-install test scripts.
 test_script:
