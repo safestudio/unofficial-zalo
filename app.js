@@ -18,27 +18,27 @@ let autoLaunchOptions = {
 if (process.platform === 'linux') {
   autoLaunchOptions.path = '/opt/Unofficial\\ Zalo/unofficial-zalo'
 }
-const appAutoLauncher = new AutoLaunch(autoLaunchOptions);
+const appAutoLauncher = new AutoLaunch(autoLaunchOptions)
 
 var isAutoLaunchEnabled = false
 const menuTemplate = [{
   label: 'Menu',
   submenu: [{
     label: 'About Unofficial Zalo',
-    click() {
+    click () {
       dialog.showMessageBox({
         icon: nativeImage.createFromPath(baseIconPath + 'app-icon.png'),
-        title: "About Unofficial Zalo",
-        message: "Unoffical Zalo " + appVersion,
-        detail: "Built by SAFE Studio with ❤️ and Electron",
-        buttons: ["OK"]
-      });
+        title: 'About Unofficial Zalo',
+        message: 'Unoffical Zalo ' + appVersion,
+        detail: 'Built by SAFE Studio with ❤️ and Electron',
+        buttons: ['OK']
+      })
     }
   },
   {
     label: 'Hide window',
     accelerator: 'CmdOrCtrl+H',
-    click() {
+    click () {
       if (win.isMinimized()) {
         win.focus()
       }
@@ -57,14 +57,14 @@ const menuTemplate = [{
     label: 'Auto start with OS',
     type: 'checkbox',
     checked: isAutoLaunchEnabled,
-    click() {
+    click () {
       toogleAutoLaunch()
     }
   },
   {
     label: 'Quit',
     accelerator: process.platform === 'darwin' ? 'Cmd+Q' : 'Alt+F4',
-    click() {
+    click () {
       app.quit()
     }
   }]
@@ -75,20 +75,20 @@ const menuTemplate = [{
     {
       label: 'Reload',
       accelerator: 'F5',
-      click() {
+      click () {
         win.loadURL(rootUrl)
       }
     },
     {
       label: 'Open developer tool',
-      click() {
+      click () {
         win.webContents.openDevTools()
       }
     }
   ]
 }]
 
-function toogleAutoLaunch() {
+function toogleAutoLaunch () {
   appAutoLauncher.isEnabled()
     .then(function (isEnabled) {
       if (isEnabled) {
@@ -101,22 +101,22 @@ function toogleAutoLaunch() {
       refreshAllMenus()
     })
     .catch(function (err) {
-      console.log("Error occurred: " + err.message)
+      console.log('Error occurred: ' + err.message)
     })
 }
 
-function refreshAutoLaunch(callback) {
+function refreshAutoLaunch (callback) {
   appAutoLauncher.isEnabled()
     .then(function (isEnabled) {
       isAutoLaunchEnabled = isEnabled
       menuTemplate[0].submenu[2].checked = isAutoLaunchEnabled
-      if (typeof callback === "function") {
+      if (typeof callback === 'function') {
         callback()
       }
       refreshAppMenu()
     })
     .catch(function (err) {
-      console.log("Error occurred: " + err.message)
+      console.log('Error occurred: ' + err.message)
     })
 }
 // Keep a global reference of the window object, if you don't, the window will
@@ -125,24 +125,24 @@ let win
 let tray
 let trayMenu
 
-function refreshAppMenu() {
+function refreshAppMenu () {
   let menu = Menu.buildFromTemplate(menuTemplate)
   Menu.setApplicationMenu(menu)
 }
 
-function refreshTrayMenu() {
+function refreshTrayMenu () {
   trayMenu = Menu.buildFromTemplate(menuTemplate[0].submenu.slice(1))
   if (process.platform === 'linux') {
     tray.setContextMenu(trayMenu)
   }
 }
 
-function refreshAllMenus() {
+function refreshAllMenus () {
   refreshTrayMenu()
   refreshAppMenu()
 }
 
-function createWindow() {
+function createWindow () {
   process.env.XDG_CURRENT_DESKTOP = 'Unity'
   // Create the browser window.
   win = new BrowserWindow({
