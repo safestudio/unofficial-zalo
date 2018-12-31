@@ -1,5 +1,7 @@
 # Unofficial Zalo App
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/SafeStudio/unofficial-zalo.svg)](https://greenkeeper.io/)
+
 
 ## Build Instruction
 
