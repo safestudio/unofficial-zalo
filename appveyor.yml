@@ -6,7 +6,6 @@ environment:
 
 cache:
   - node_modules
- - "%LOCALAPPDATA%\\Yarn"
 
 platform:
   - x86
