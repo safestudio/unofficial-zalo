@@ -6,7 +6,7 @@ const {
   Menu
 } = require('electron')
 const nativeImage = require('electron').nativeImage
-const appVersion = '1.0.3'
+const appVersion = require('./package.json').version
 const path = require('path')
 const baseIconPath = 'src/assets/icons/'
 const iconPath = baseIconPath + 'icon.png'

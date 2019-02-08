@@ -1,11 +1,12 @@
 # Test against the latest version of this Node.js version
 environment:
-  nodejs_version: "9.8.0"
+  nodejs_version: "11.8.0"
   GH_TOKEN:
     secure: idf9Ht7UeO27yGNByujMSDxNNoeWYaxXOyk+znTJbgmybPAIlVnp4gWpGmOs/awj
 
 cache:
   - node_modules
+ - "%LOCALAPPDATA%\\Yarn"
 
 platform:
   - x86
@@ -16,10 +17,10 @@ install:
   # Get the latest stable version of Node.js or io.js
   - ps: Install-Product node $env:nodejs_version $env:platform
   # install modules
-  - npm install --save-dev
+  - yarn install
 
 build_script:
-  - npm run dist
+  - yarn dist
 
 version: '{build}'
 
@@ -27,7 +28,7 @@ version: '{build}'
 test_script:
   # Output useful info for debugging.
   - node --version
-  - npm --version
+  - yarn --version
 
 # Don't actually build.
 build: on
