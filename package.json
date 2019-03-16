@@ -45,15 +45,14 @@
   },
   "license": "GPL-3.0",
   "devDependencies": {
-    "electron": "^4.0.4",
-    "electron-builder": "^20.38.5",
-    "eslint": "^5.13.0",
+    "electron": "^4.1.0",
+    "electron-builder": "^20.39.0",
+    "eslint": "^5.15.2",
     "eslint-config-standard": "^12.0.0",
     "eslint-plugin-import": "^2.16.0",
     "eslint-plugin-node": "^8.0.1",
     "eslint-plugin-promise": "^4.0.1",
-    "eslint-plugin-standard": "^4.0.0",
-    "ajv": "^6.8.1"
+    "eslint-plugin-standard": "^4.0.0"
   },
   "dependencies": {
     "auto-launch": "^5.0.5"
