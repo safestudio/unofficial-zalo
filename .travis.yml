@@ -65,6 +65,10 @@ script:
   - echo "Deploy Mac version to GitHub"
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then yarn release:mac; fi
 
+branches:
+  only:
+    - master
+    - /^versions.*$/
 deploy:
   provider: releases
   api_key: $GH_TOKEN
