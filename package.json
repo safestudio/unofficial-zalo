@@ -1,15 +1,18 @@
 {
   "name": "unofficial-zalo",
-  "version": "1.0.5",
-  "revision": "20171216",
+  "version": "1.0.6",
+  "revision": "20190430",
   "description": "Unofficial Zalo App",
   "repository": "SafeStudio/unofficial-zalo",
   "main": "app.js",
   "scripts": {
-    "dist": "./node_modules/.bin/electron-builder",
     "lint": "eslint . --ext .js --ignore-path .gitignore",
     "lint:fix": "eslint . --ext .js --ignore-path .gitignore --fix",
-    "package-win": "electron-packager . --overwrite --asar=true --platform=win32 --arch=ia32 --icon=$(pwd)/src/assets/icons/win/icon.ico --prune=true --out=$(pwd)/dist --version-string.CompanyName=SafeStudio --version-string.FileDescription=CE --version-string.ProductName=\"Unofficial Zalo\" --electronVersion=$(electron -v | sed -e \"s/^v//\")"
+    "release": "electron-builder build",
+    "release:all": "npx electron-builder build -mwl -p always",
+    "release:win": "npx electron-builder build --win -p always",
+    "release:mac": "npx electron-builder build --mac -p always",
+    "release:linux": "npx electron-builder build --linux -p always"
   },
   "build": {
     "appId": "tech.safestudio.unofficial-zalo",
@@ -47,11 +50,11 @@
   "devDependencies": {
     "electron": "^5.0.0",
     "electron-builder": "^20.39.0",
-    "eslint": "^5.15.2",
+    "eslint": "^5.16.0",
     "eslint-config-standard": "^12.0.0",
-    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-import": "^2.17.2",
     "eslint-plugin-node": "^8.0.1",
-    "eslint-plugin-promise": "^4.0.1",
+    "eslint-plugin-promise": "^4.1.1",
     "eslint-plugin-standard": "^4.0.0"
   },
   "dependencies": {

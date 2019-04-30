@@ -1,6 +1,8 @@
 # Test against the latest version of this Node.js version
 environment:
-  nodejs_version: "11.8.0"
+  matrix:
+  - nodejs_version: "stable"
+  - nodejs_version: "lts"
   GH_TOKEN:
     secure: idf9Ht7UeO27yGNByujMSDxNNoeWYaxXOyk+znTJbgmybPAIlVnp4gWpGmOs/awj
 
@@ -19,7 +21,7 @@ install:
   - yarn install
 
 build_script:
-  - yarn dist
+  - yarn release:win
 
 version: '{build}'
 
