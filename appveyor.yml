@@ -1,6 +1,8 @@
 # Test against the latest version of this Node.js version
 environment:
-  nodejs_version: "12.1.0"
+  matrix:
+  - nodejs_version: "stable"
+  - nodejs_version: "lts"
   GH_TOKEN:
     secure: idf9Ht7UeO27yGNByujMSDxNNoeWYaxXOyk+znTJbgmybPAIlVnp4gWpGmOs/awj
 
