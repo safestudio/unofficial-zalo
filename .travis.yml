@@ -1,25 +1,17 @@
-sudo: required
-dist: trusty
-
-language: nodejs
+os:
+  - linux
+  - osx
 
 matrix:
   include:
     - os: osx
+      osx_image: xcode10.2
     - os: linux
-#      env: CC=clang CXX=clang++ npm_config_clang=1
-      compiler: clang
+      dist: trusty
 
-env:
-  - CXX=g++-4.8
-
-node_js:
-  - 11
-
-cache:
-  yarn: true
-  directories:
-    - node_modules
+compiler:
+  - gcc
+  - clang
 
 addons:
   apt:
@@ -31,20 +23,51 @@ addons:
       - rpm
       - curl
 
+env:
+  global:
+    - ELECTRON_CACHE=$HOME/.cache/electron
+    - ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder
+    - CXX=g++-4.8
+
+language: nodejs
+
+node_js:
+  - 12
+
+before_cache:
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then rm -rf $HOME/.cache/electron-builder/wine; fi
+
+cache:
+  yarn: true
+  directories:
+    - node_modules
+    - $HOME/.cache/electron
+    - $HOME/.cache/electron-builder
+    - $HOME/.npm/_prebuilds
+
 before_install:
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then apt-update; apt-get dist-upgrade -y; fi
   - curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh | bash
   - export NVM_DIR="${XDG_CONFIG_HOME/:-$HOME/.}nvm"
   - [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-  - nvm use 11
+  - nvm use 12
   - curl -o- -L https://yarnpkg.com/install.sh | bash
   - export PATH="$HOME/.yarn/bin:$PATH"
 
 install:
   - yarn install
-  - yarn dist
+
+script:
+  - echo "Deploy Linux version to GitHub"
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then yarn release:linux; fi
+
+  - echo "Deploy Mac version to GitHub"
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then yarn release:mac; fi
+
 deploy:
   provider: releases
-  api_key: $GITHUB_TOKEN
+  api_key: $GH_TOKEN
   file_glob: true
   file:
     - "dist/*"
