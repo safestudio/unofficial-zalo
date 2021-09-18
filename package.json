@@ -1,7 +1,7 @@
 {
   "name": "unofficial-zalo",
-  "version": "1.0.7",
-  "revision": "20190622",
+  "version": "1.0.8",
+  "revision": "20210918",
   "description": "Unofficial Zalo App",
   "repository": "SafeStudio/unofficial-zalo",
   "main": "app.js",
