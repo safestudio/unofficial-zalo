@@ -12,7 +12,7 @@ const baseIconPath = 'src/assets/icons/'
 const iconPath = baseIconPath + 'icon.png'
 const AutoLaunch = require('auto-launch')
 const rootUrl = 'https://chat.zalo.me/'
-let autoLaunchOptions = {
+const autoLaunchOptions = {
   name: 'Unofficial Zalo'
 }
 if (process.platform === 'linux') {
@@ -20,7 +20,7 @@ if (process.platform === 'linux') {
 }
 const appAutoLauncher = new AutoLaunch(autoLaunchOptions)
 
-var isAutoLaunchEnabled = false
+let isAutoLaunchEnabled = false
 const menuTemplate = [{
   label: 'Menu',
   submenu: [{
@@ -126,7 +126,7 @@ let tray
 let trayMenu
 
 function refreshAppMenu () {
-  let menu = Menu.buildFromTemplate(menuTemplate)
+  const menu = Menu.buildFromTemplate(menuTemplate)
   Menu.setApplicationMenu(menu)
 }
 

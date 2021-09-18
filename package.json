@@ -1,7 +1,7 @@
 {
   "name": "unofficial-zalo",
-  "version": "1.0.7",
-  "revision": "20190622",
+  "version": "1.0.8",
+  "revision": "20210918",
   "description": "Unofficial Zalo App",
   "repository": "SafeStudio/unofficial-zalo",
   "main": "app.js",
@@ -48,14 +48,13 @@
   },
   "license": "GPL-3.0",
   "devDependencies": {
-    "electron": "^7.0.0",
-    "electron-builder": "21.2.0",
-    "eslint": "^6.0.0",
-    "eslint-config-standard": "14.0.1",
-    "eslint-plugin-import": "^2.17.3",
-    "eslint-plugin-node": "^10.0.0",
-    "eslint-plugin-promise": "^4.1.1",
-    "eslint-plugin-standard": "^4.0.0"
+    "electron": "^14.0.1",
+    "electron-builder": "^22.11.7",
+    "eslint": "^7.32.0",
+    "eslint-config-standard": "^16.0.3",
+    "eslint-plugin-import": "^2.24.2",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^5.1.0"
   },
   "dependencies": {
     "auto-launch": "^5.0.5"
