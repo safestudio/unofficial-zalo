@@ -8,11 +8,11 @@
   "scripts": {
     "lint": "eslint . --ext .js --ignore-path .gitignore",
     "lint:fix": "eslint . --ext .js --ignore-path .gitignore --fix",
-    "release": "electron-builder build",
-    "release:all": "npx electron-builder build -mwl -p always",
-    "release:win": "npx electron-builder build --win -p always",
-    "release:mac": "npx electron-builder build --mac -p always",
-    "release:linux": "npx electron-builder build --linux -p always"
+    "build": "electron-builder build",
+    "build-all": "npx electron-builder build -mwl -p always",
+    "build-windows": "npx electron-builder build --win -p always",
+    "build-macos": "npx electron-builder build --mac -p always",
+    "build-linux": "npx electron-builder build --linux -p always"
   },
   "build": {
     "appId": "tech.safestudio.unofficial-zalo",
@@ -49,7 +49,7 @@
   "license": "GPL-3.0",
   "devDependencies": {
     "electron": "^14.0.1",
-    "electron-builder": "^22.11.7",
+    "electron-builder": "^21.2.0",
     "eslint": "^7.32.0",
     "eslint-config-standard": "^16.0.3",
     "eslint-plugin-import": "^2.24.2",
